@@ -1,0 +1,42 @@
+server:
+  port: 56020
+
+spring:
+  application:
+    name: storageService2
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        #dataId的名称就是application.name + file-extension
+        file-extension: yaml
+        namespace: 546897f2-ea83-4f86-9649-5de3b449fd34
+        group: STORAGE_GROUP
+
+
+#seata相关配置
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  # 这个要和你在配置中心配置的service.vgroupMapping.orderService1_tx_group后面的orderService1_tx_group一致
+  tx-service-group: ${spring.application.name}_tx_group
+
+  #通过此配置可以找到seata在nacos上的注册地址，然后可以找到seata服务器，然后才能使用到seata的分布式事务的功能，就是seata服务的发现
+  registry:
+    type: nacos
+    nacos:
+      #要和注册到nacos上的服务名一样，否则找不到，就是服务的发现
+      application: seata-server
+      server-addr: 127.0.0.1:8848
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos
+  # 找到seata服务后，开始通过找到nacos配置中心上的配置开始使用seata的分布式功能
+  config:
+    type: nacos
+    nacos:
+      server-addr: 127.0.0.1:8848
+      namespace: 546897f2-ea83-4f86-9649-5de3b449fd34
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos

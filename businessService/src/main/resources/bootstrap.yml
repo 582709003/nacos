@@ -1,0 +1,53 @@
+server:
+  port: 56030
+
+spring:
+  application:
+    name: shopService1
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        #dataId的名称就是application.name + file-extension
+        file-extension: yaml #优先级最高
+        namespace: 546897f2-ea83-4f86-9649-5de3b449fd34
+        group: SEATA-GROUP
+
+        #自定义扩展dataId方式一；优先级次之
+#        ext-config[0]: #这里0所处的地方的值越大，优先级越高
+#          data-id: exc1.properties
+#          group: EXC1_GROUP
+#          #添加支持动态刷新
+#          refresh: true
+#
+#        #自定义扩展dataId方式二,这种方式只支持group为DEFAULT_GROUP；优先级最低
+#        shared-dataids: exc1.properties,exc2.properties
+#        #添加支持动态刷新
+#        refreshable-dataids: exc1.properties,exc2.properties
+
+#seata相关配置
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  # 这个要和你在配置中心配置的service.vgroupMapping.orderService1_tx_group后面的orderService1_tx_group一致
+  tx-service-group: ${spring.application.name}_tx_group
+
+  #通过此配置可以找到seata在nacos上的注册地址，然后可以找到seata服务器，然后才能使用到seata的分布式事务的功能，就是服务的发现
+  registry:
+    type: nacos
+    nacos:
+      #要和注册到nacos上的服务名一样，否则找不到，就是服务的发现
+      application: seata-server
+      server-addr: 127.0.0.1:8848
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos
+  # 找到seata服务后，开始通过找到nacos配置中心上的配置开始使用seata的分布式功能
+  config:
+    type: nacos
+    nacos:
+      server-addr: 127.0.0.1:8848
+      namespace: 546897f2-ea83-4f86-9649-5de3b449fd34
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos

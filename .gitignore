@@ -1,0 +1,5 @@
+# Project exclude paths
+/businessService/target/
+/nacos-config/target/
+/service1/target/
+/service2/target/

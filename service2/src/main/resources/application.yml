@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        #服务的注册与发现
+        server-addr: 127.0.0.1:8848
+        #将服务发布到dev环境
+        namespace: 546897f2-ea83-4f86-9649-5de3b449fd34
