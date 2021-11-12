@@ -25,11 +25,12 @@ public class StorageServiceImpl implements StorageService {
     @Override
     @Transactional
     public boolean reduce() {
+        int i = 1 / 0;
         TabStorage storage = new TabStorage();
         storage.setId(1l)
                 .setProductId(1l)
-                .setTotal(99)
-                .setUsed(1);
+                .setTotal(98)
+                .setUsed(2);
         return storageMapper.updateByPrimaryKey(storage) > 0;
     }
 }

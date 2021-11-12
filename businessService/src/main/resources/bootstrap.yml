@@ -32,6 +32,7 @@ seata:
   # 这个要和你在配置中心配置的service.vgroupMapping.orderService1_tx_group后面的orderService1_tx_group一致
   tx-service-group: ${spring.application.name}_tx_group
 
+
   #通过此配置可以找到seata在nacos上的注册地址，然后可以找到seata服务器，然后才能使用到seata的分布式事务的功能，就是服务的发现
   registry:
     type: nacos
@@ -42,6 +43,7 @@ seata:
       group: SEATA_GROUP
       username: nacos
       password: nacos
+      namespace: 546897f2-ea83-4f86-9649-5de3b449fd34
   # 找到seata服务后，开始通过找到nacos配置中心上的配置开始使用seata的分布式功能
   config:
     type: nacos

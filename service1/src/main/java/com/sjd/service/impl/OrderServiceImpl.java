@@ -26,8 +26,8 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public boolean create() {
         TabOrder order = new TabOrder();
-        order.setCount(1)
-                .setId(1l)
+        order.setCount(2)
+                .setId(2l)
                 .setProductId(1l)
                 .setUserId(1l);
         return orderMapper.insert(order) > 0;
